@@ -1,4 +1,4 @@
-const BACKEND_DEV = "http://192.168.14.131/backend/engager-backend/rest";
+const BACKEND_DEV = "http://localhost:3003/backend/engager-backend/";
 const BACKEND_PROD = "https://www.myfotoplaces.com/engager/admin";
 
 const BACKEND =

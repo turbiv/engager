@@ -5,17 +5,19 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const mongoose = require("mongoose");
 const morgan = require('morgan');
+const middleware = require("./utils/middleware");
 
-const profilesController = require("./controllers/profile");
-
-const mongoUrl = "mongodb+srv://fullstack:df478444@cluster0-vgh1b.mongodb.net/test?retryWrites=true&w=majority";
+const profilesController = require("./controllers/my-profile");
+const baseurl = "/backend/engager-backend/api";
+const mongoUrl = "mongodb+srv://fullstack:df478444@cluster0-vgh1b.mongodb.net/engager?retryWrites=true&w=majority";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(cors());
 app.use(bodyParser.json());
 app.use(morgan("tiny"));
+app.use(middleware.getToken);
 
-app.use("/api/profile", profilesController);
+app.use(baseurl + "/my-profile", profilesController);
 
 
 
@@ -33,6 +35,7 @@ app.use("/api/profile", profilesController);
 //TODO: /promocode_validate/
 
 //TODO: Error handlers
+app.use(middleware.errorHandler);
 
 
 const PORT = 3003;

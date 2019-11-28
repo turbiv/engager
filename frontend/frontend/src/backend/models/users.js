@@ -6,15 +6,16 @@ mongo.set('useFindAndModify', false);
 mongo.set('useCreateIndex', true);
 mongo.set('useUnifiedTopology', true);
 
-const profileSchema = mongo.Schema({
+const userSchema = mongo.Schema({
   account_id: {type: Number, unique: true},
-  profile_id: {type: String, unique: true},
-  json: {type: Map, unique: false},
+  account_key: {type: String, unique: true},
+  registration_id: {type: Number, unique: true},
+  emails: [String]
 });
 
-profileSchema.plugin(uniqueValidator);
+userSchema.plugin(uniqueValidator);
 
-profileSchema.set('toJSON', {
+userSchema.set('toJSON', {
   transform: (document, returnedObject) => {
     returnedObject.id = returnedObject._id.toString();
     delete returnedObject._id;
@@ -22,6 +23,6 @@ profileSchema.set('toJSON', {
   }
 });
 
-const profiles = mongo.model('profiles', profileSchema);
+const users = mongo.model('users', userSchema);
 
-module.exports = profiles;
+module.exports = users;

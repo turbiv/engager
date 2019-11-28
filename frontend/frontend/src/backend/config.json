@@ -13,6 +13,7 @@
     "unauthorized": 401,
     "notfound": 404,
     "too_many_requests": 429,
-    "internal_server_error": 500
+    "internal_server_error": 500,
+    "ok": 200
   }
 }
