@@ -7,7 +7,7 @@ mongo.set('useCreateIndex', true);
 mongo.set('useUnifiedTopology', true);
 
 const profileSchema = mongo.Schema({
-  account_profile: mongo.Schema.Types.ObjectId,
+  account_profile: mongo.Schema.Types.ObjectId, //Registered account to the profile
   categories: [],
   info: {
     phone: String,

@@ -4,6 +4,7 @@ const config = require("../config.json");
 const mongoAccountProfile = require("../models/account_profile");
 const mongoProfile = require("../models/profile");
 const wrapper = require("../utils/wrapper");
+const mongoose = require("mongoose");
 
 expressRouter.get('/', async (request, response) =>{
   const token = request.token;
@@ -19,6 +20,17 @@ expressRouter.get('/', async (request, response) =>{
   const profile = await mongoAccountProfile.findOne({account_id: user.account_id})
     .populate("json")
     .catch(() => response.status(config.response.notfound).send({error: "profile not found"}).end());
+
+  //Create profile for account if none exist
+  if(profile === null){
+    const newprofile = {
+      account_id: user.account_id,
+      publishing_type: 1,
+      profile_id: mongoose.Types.ObjectId()
+    };
+    const savenewprofile = new mongoAccountProfile(newprofile);
+    await savenewprofile.save()
+  }
 
   if(!profile.json){
     return response.status(config.response.ok).send("").end()

@@ -8,9 +8,9 @@ mongo.set('useUnifiedTopology', true);
 
 const account_profileSchema = mongo.Schema({
   profile_id: mongo.Schema.Types.ObjectId,
-  account_id: mongo.Schema.Types.ObjectId,
+  account_id: mongo.Schema.Types.ObjectId, //Same id as in users models
   publishing_type: {type: Number, unique: true},
-  json: {type: mongo.Schema.Types.ObjectId, ref: "profiles"}
+  json: {type: mongo.Schema.Types.ObjectId, ref: "profiles"} //Refer to profiles
 });
 
 account_profileSchema.plugin(uniqueValidator);
