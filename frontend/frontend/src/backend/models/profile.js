@@ -7,9 +7,16 @@ mongo.set('useCreateIndex', true);
 mongo.set('useUnifiedTopology', true);
 
 const profileSchema = mongo.Schema({
-  account_id: {type: Number, unique: true},
-  profile_id: {type: String, unique: true},
-  json: {type: Map, unique: false},
+  account_profile: mongo.Schema.Types.ObjectId,
+  categories: [],
+  info: {
+    phone: String,
+    email: String,
+    social: String,
+    openHours: [String],
+    address: [String],
+    location: { lat: Number, lng: Number, preview: String }
+  }
 });
 
 profileSchema.plugin(uniqueValidator);

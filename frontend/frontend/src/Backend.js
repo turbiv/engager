@@ -31,12 +31,12 @@ export const retriveProfile = () => {
 
 export const uploadProfile = profile => {
   const token = store.getState().clientData.token;
-  const query = `${BACKEND}/index.php/my-profile`;
+  const query = BACKEND + "api/my-profile";
 
   return new Promise((resolve, reject) => {
     axios
       .post(query, profile, {
-        headers: { "Content-Type": "text/plain", Authorization: token }
+        headers: { "Content-Type": "application/json", Authorization: token }
       })
       .then(function(response) {
         resolve();
