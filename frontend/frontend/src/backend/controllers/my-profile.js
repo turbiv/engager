@@ -22,6 +22,7 @@ expressRouter.get('/', async (request, response) =>{
     .catch(() => response.status(config.response.notfound).send({error: "profile not found"}).end());
 
   //Create profile for account if none exist
+
   if(profile === null){
     const newprofile = {
       account_id: user.account_id,
@@ -29,12 +30,11 @@ expressRouter.get('/', async (request, response) =>{
       profile_id: mongoose.Types.ObjectId()
     };
     const savenewprofile = new mongoAccountProfile(newprofile);
-    await savenewprofile.save()
-  }
+    await savenewprofile.save();
 
-  if(!profile.json){
     return response.status(config.response.ok).send("").end()
   }
+
   response.status(config.response.ok).send(profile.json).end()
 });
 
@@ -70,7 +70,7 @@ expressRouter.post('/', async (request, response) =>{
   }
 
   const updateProfile = await mongoProfile.findOneAndUpdate({account_profile: accountProfile._id}, {...body});
-  updateProfile.save()
+  await updateProfile.save()
 });
 
 

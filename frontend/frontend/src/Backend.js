@@ -10,7 +10,7 @@ export const PUBLISH_PRODUCTION = 3;
 
 export const retriveProfile = () => {
   const token = store.getState().clientData.token;
-  const query = BACKEND + "api/my-profile";
+  const query = BACKEND + "/api/my-profile";
 
   return new Promise((resolve, reject) => {
     axios
@@ -31,7 +31,7 @@ export const retriveProfile = () => {
 
 export const uploadProfile = profile => {
   const token = store.getState().clientData.token;
-  const query = BACKEND + "api/my-profile";
+  const query = BACKEND + "/api/my-profile";
 
   return new Promise((resolve, reject) => {
     axios
