@@ -8,7 +8,40 @@ mongo.set('useUnifiedTopology', true);
 
 const profileSchema = mongo.Schema({
   account_profile: mongo.Schema.Types.ObjectId, //Registered account to the profile
-  categories: [],
+  categories: [
+    new mongo.Schema({
+      name: String,
+      id: String,
+      sellables: [
+        new mongo.Schema({
+          cat: String,
+          id: String,
+          name: String,
+          oldprice: [],
+          price: [],
+          desc: String,
+          intro: {
+            size: {}
+          },
+          promo: {
+            size: {},
+            square: {
+              path: String,
+              size: {}
+            },
+            time: {
+              days: [],
+              time_between: [String]
+            },
+            push: Boolean,
+            message: String,
+            path: String
+          },
+          bonuses: []
+        })
+      ]
+    })
+  ],
   info: {
     phone: String,
     email: String,
@@ -17,7 +50,7 @@ const profileSchema = mongo.Schema({
     address: [String],
     location: { lat: Number, lng: Number, preview: String }
   }
-});
+},{ minimize: false });
 
 profileSchema.plugin(uniqueValidator);
 

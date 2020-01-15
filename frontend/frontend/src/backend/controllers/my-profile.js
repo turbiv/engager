@@ -7,6 +7,13 @@ const wrapper = require("../utils/wrapper");
 const mongoose = require("mongoose");
 
 expressRouter.get('/', async (request, response) =>{
+  /*
+  Get user from token
+  Find accountProfile using user.account_id (retrived from token) and populate with json
+    if failed -> profile is null and a new accountprofile will be created without any data info (json empty)
+    if success -> send accountProfile json data
+  */
+
   const token = request.token;
   if(!token){
     return response.status(config.response.badrequest).send({error: "authorization token is missing"})
@@ -35,10 +42,13 @@ expressRouter.get('/', async (request, response) =>{
     return response.status(config.response.ok).send("").end()
   }
 
+  console.log(profile.json.categories[0].sellables)
+
   response.status(config.response.ok).send(profile.json).end()
 });
 
 expressRouter.post('/', async (request, response) =>{
+
   const token = request.token;
   const body = request.body;
 

@@ -312,6 +312,9 @@ class MenuCreatorSellable extends Component {
       square: this.onUploadSquare
     };
 
+    console.log(sellable)
+    console.log("props ", this.props)
+
     return (
       <Card className={classes.card}>
         <Tabs value={tabValue} onChange={this.handleTabChange}>
