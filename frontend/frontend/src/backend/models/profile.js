@@ -21,7 +21,8 @@ const profileSchema = mongo.Schema({
           price: [],
           desc: String,
           intro: {
-            size: {}
+            size: {},
+            path: Buffer
           },
           promo: {
             size: {},

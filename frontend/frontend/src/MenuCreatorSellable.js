@@ -271,7 +271,7 @@ class MenuCreatorSellable extends Component {
   performUploading = (selectedFile, what) => {
     const { sellable } = this.props;
 
-    backend.uploadImage(selectedFile).then(iuuid => {
+    backend.uploadImage(selectedFile, sellable._id).then(iuuid => {
       menuactions.setImageToSellable(sellable, iuuid, what);
       this.updateImageSize(iuuid, what);
     });

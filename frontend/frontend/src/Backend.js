@@ -47,6 +47,28 @@ export const uploadProfile = profile => {
   });
 };
 
+export const uploadImage = (selectedFile, sellableid) => {
+  const data = new FormData();
+  data.append("image", selectedFile);
+  data.append("id", sellableid);
+  const iuuid = uuid.v4();
+  const token = store.getState().clientData.token;
+  const query = `${BACKEND}/api/image-upload`;
+
+  return new Promise((resolve, reject) => {
+    axios
+      .post(query, data, {
+        headers: { "Content-Type": "multipart/form-data", Authorization: token }
+      })
+      .then(function(response) {
+        resolve(iuuid);
+      })
+      .catch(function(error) {
+        reject(iuuid);
+      });
+  });
+};
+
 export const publishProfile = type => {
   const token = store.getState().clientData.token;
   const query = `${BACKEND}/index.php/publish/${type}`;
@@ -61,26 +83,6 @@ export const publishProfile = type => {
       })
       .catch(function(error) {
         reject();
-      });
-  });
-};
-
-export const uploadImage = selectedFile => {
-  const data = new FormData();
-  data.append("image", selectedFile);
-  const iuuid = uuid.v4();
-  const token = store.getState().clientData.token;
-  const query = `${BACKEND}/index.php/image/meta/${iuuid}`;
-  return new Promise((resolve, reject) => {
-    axios
-      .post(query, data, {
-        headers: { "Content-Type": "multipart/form-data", Authorization: token }
-      })
-      .then(function(response) {
-        resolve(iuuid);
-      })
-      .catch(function(error) {
-        reject(iuuid);
       });
   });
 };

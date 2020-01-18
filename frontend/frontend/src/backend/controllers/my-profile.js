@@ -15,6 +15,9 @@ expressRouter.get('/', async (request, response) =>{
   */
 
   const token = request.token;
+
+  console.log(token);
+
   if(!token){
     return response.status(config.response.badrequest).send({error: "authorization token is missing"})
   }
