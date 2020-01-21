@@ -32,15 +32,16 @@ expressRouter.post("/", async (request, response) =>{
 
   const profile = await mongoProfile.findOne({account_profile: accountProfile._id});
 
-  const sellable = profile.categories.find(category =>
+  const sellable = profile.categories.map(category =>
+    //category.sellables.some(item => item._id.toString() === body.id)
     category.sellables.find(sellable => sellable._id.toString() === body.id ? sellable : null)
   );
 
   console.log(sellable)
-  console.log(profile.categories)
   console.log(body)
 
   response.status(200).end()
+
 });
 
 expressRouter.get("/", async (request, response) =>{

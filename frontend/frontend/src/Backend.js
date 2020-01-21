@@ -47,13 +47,12 @@ export const uploadProfile = profile => {
   });
 };
 
-export const uploadImage = (selectedFile, sellableid) => {
+export const uploadImage = (selectedFile) => {
   const data = new FormData();
   data.append("image", selectedFile);
-  data.append("id", sellableid);
   const iuuid = uuid.v4();
   const token = store.getState().clientData.token;
-  const query = `${BACKEND}/api/image-upload`;
+  const query = `${BACKEND}/api/image-upload/meta/${iuuid}/`;
 
   return new Promise((resolve, reject) => {
     axios
