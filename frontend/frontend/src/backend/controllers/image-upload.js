@@ -3,6 +3,7 @@ const expressRouter = express.Router();
 const config = require("../config.json");
 const mongoAccountProfile = require("../models/account_profile");
 const mongoProfile = require("../models/profile");
+const wrapper = require("../utils/wrapper");
 const multer = require('multer');
 const upload = multer();
 
@@ -10,13 +11,12 @@ expressRouter.post("/:meta/:uuid", upload.single("image"), async (request, respo
   const token = request.token;
   const file = request.file;
 
-  /*
   if(!token) {
     return response.status(config.response.badrequest).send({error: "authorization token is missing"})
   }
 
-  if(!body){
-    return response.status(config.response.badrequest).send({error: "missing body"})
+  if(!file){
+    return response.status(config.response.badrequest).send({error: "missing file"})
   }
 
   const user = await wrapper.getAccountFromToken(token);
@@ -24,11 +24,8 @@ expressRouter.post("/:meta/:uuid", upload.single("image"), async (request, respo
     return response.status(config.response.unauthorized).send("failed to authorize").end()
   }
 
-   */
-
-  const accountProfile = await mongoAccountProfile.findOne({account_id: "5de1ae461670400000996d00"})
+  const accountProfile = await mongoAccountProfile.findOne({account_id: user.account_id})
     .catch(() => response.status(config.response.notfound).send({error: "profile not found"}).end());
-  console.log("Request file ", request.file)
 
   const profile = await mongoProfile.findOneAndUpdate({account_profile: accountProfile._id}, {"$push":
       {"images": {
