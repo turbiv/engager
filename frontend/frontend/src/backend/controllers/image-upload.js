@@ -43,9 +43,12 @@ expressRouter.post("/:meta/:uuid", upload.single("image"), async (request, respo
 
 });
 
-expressRouter.get("/", async (request, response) =>{
-  console.log("asd")
+expressRouter.get("/:publishingtype/:uuid", async (request, response) =>{
+  const params = request.params;
 
+  const {images} = await mongoProfile.findOne({"images.uuid": params.uuid}, {"images.$": 1});
+
+  response.status(200).end(images[0].contentbinary, "binary")
 });
 
 module.exports = expressRouter;

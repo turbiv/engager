@@ -147,5 +147,5 @@ export const completeOrder = key => {
 
 export const getImageUrl = uuid => {
   const type = PUBLISH_DRAFT;
-  return `${BACKEND}/index.php/image/${type}/${uuid}`;
+  return `${BACKEND}/api/image-upload/${type}/${uuid}/`;
 };
