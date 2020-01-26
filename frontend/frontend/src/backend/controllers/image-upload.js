@@ -48,6 +48,7 @@ expressRouter.get("/:publishingtype/:uuid", async (request, response) =>{
 
   const {images} = await mongoProfile.findOne({"images.uuid": params.uuid}, {"images.$": 1});
 
+  response.header("Content-Type", images[0].content_type)
   response.status(200).end(images[0].contentbinary, "binary")
 });
 

@@ -20,8 +20,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/frontend/src/backend/models/profile.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="238">
-              <caret line="56" column="10" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="10" />
+            <state relative-caret-position="153">
+              <caret line="18" column="23" lean-forward="true" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
             </state>
           </provider>
         </entry>
@@ -35,11 +35,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/frontend/frontend/src/backend/controllers/image-upload.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="274">
-              <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
+            <state relative-caret-position="121">
+              <caret line="33" column="36" lean-forward="true" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
             </state>
           </provider>
         </entry>
@@ -62,11 +62,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/frontend/src/Backend.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="138">
-              <caret line="132" lean-forward="true" selection-start-line="132" selection-end-line="132" />
+            <state relative-caret-position="478">
+              <caret line="62" column="17" lean-forward="true" selection-start-line="62" selection-start-column="17" selection-end-line="62" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -74,8 +74,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/frontend/src/MenuCreatorSellable.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="178">
-              <caret line="49" column="19" lean-forward="true" selection-start-line="49" selection-start-column="19" selection-end-line="49" selection-end-column="19" />
+            <state relative-caret-position="211">
+              <caret line="281" column="4" lean-forward="true" selection-start-line="281" selection-start-column="4" selection-end-line="281" selection-end-column="4" />
               <folding>
                 <element signature="e#0#41#0" expanded="true" />
               </folding>
@@ -86,8 +86,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/frontend/frontend/src/PreviewImage.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="393">
-              <caret line="43" column="25" lean-forward="true" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
+            <state relative-caret-position="444">
+              <caret line="49" column="17" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
             </state>
           </provider>
         </entry>
@@ -96,7 +96,7 @@
         <entry file="file://$PROJECT_DIR$/frontend/frontend/src/MenuCreatorActions.js">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="212">
-              <caret line="115" column="58" lean-forward="true" selection-start-line="115" selection-start-column="58" selection-end-line="115" selection-end-column="58" />
+              <caret line="115" column="40" selection-start-line="115" selection-start-column="40" selection-end-line="115" selection-end-column="40" />
             </state>
           </provider>
         </entry>
@@ -123,14 +123,14 @@
         <option value="$PROJECT_DIR$/frontend/frontend/package.json" />
         <option value="$PROJECT_DIR$/frontend/frontend/src/MenuCreatorSellable.js" />
         <option value="$PROJECT_DIR$/frontend/frontend/src/backend/models/profile.js" />
-        <option value="$PROJECT_DIR$/frontend/frontend/src/backend/controllers/image-upload.js" />
         <option value="$PROJECT_DIR$/frontend/frontend/src/Backend.js" />
+        <option value="$PROJECT_DIR$/frontend/frontend/src/backend/controllers/image-upload.js" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="1932" />
-    <option name="y" value="-9" />
+    <option name="x" value="1941" />
+    <option name="y" value="-23" />
     <option name="width" value="1934" />
     <option name="height" value="977" />
   </component>
@@ -237,18 +237,18 @@
       <workItem from="1579030244015" duration="7198000" />
       <workItem from="1579164426944" duration="762000" />
       <workItem from="1579392531321" duration="6642000" />
-      <workItem from="1579906998813" duration="21751000" />
+      <workItem from="1579906998813" duration="24168000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="36353000" />
+    <option name="totallyTimeSpent" value="38770000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="1912" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1835" y="273" width="1934" height="977" extended-state="0" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.24973656" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.25" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -262,7 +262,7 @@
       <window_info anchor="bottom" id="Version Control" order="8" />
       <window_info anchor="bottom" id="GraphQL" order="9" />
       <window_info anchor="bottom" id="TypeScript" order="10" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.33802816" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="11" visible="true" weight="0.36966825" />
       <window_info anchor="bottom" id="Event Log" order="12" side_tool="true" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="1" weight="0.25" />
@@ -393,27 +393,31 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/frontend/src/MenuCreatorActions.js">
+    <entry file="file://$PROJECT_DIR$/frontend/frontend/node_modules/@material-ui/core/SvgIcon/SvgIcon.d.ts">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="212">
-          <caret line="115" column="58" lean-forward="true" selection-start-line="115" selection-start-column="58" selection-end-line="115" selection-end-column="58" />
+        <state relative-caret-position="1003">
+          <caret line="60" column="24" selection-start-line="60" selection-start-column="24" selection-end-line="60" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/frontend/src/PreviewImage.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="444">
+          <caret line="49" column="17" selection-start-line="49" selection-start-column="17" selection-end-line="49" selection-end-column="17" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/frontend/frontend/src/backend/models/profile.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="56" column="10" selection-start-line="56" selection-start-column="6" selection-end-line="56" selection-end-column="10" />
+        <state relative-caret-position="153">
+          <caret line="18" column="23" lean-forward="true" selection-start-line="18" selection-start-column="23" selection-end-line="18" selection-end-column="23" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/frontend/src/MenuCreatorSellable.js">
+    <entry file="file://$PROJECT_DIR$/frontend/frontend/src/MenuCreatorActions.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="49" column="19" lean-forward="true" selection-start-line="49" selection-start-column="19" selection-end-line="49" selection-end-column="19" />
-          <folding>
-            <element signature="e#0#41#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="212">
+          <caret line="115" column="40" selection-start-line="115" selection-start-column="40" selection-end-line="115" selection-end-column="40" />
         </state>
       </provider>
     </entry>
@@ -424,24 +428,27 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/frontend/src/backend/controllers/image-upload.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="274">
-          <caret line="42" lean-forward="true" selection-start-line="42" selection-end-line="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/frontend/frontend/src/PreviewImage.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="393">
-          <caret line="43" column="25" lean-forward="true" selection-start-line="43" selection-start-column="25" selection-end-line="43" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/frontend/frontend/src/Backend.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="138">
-          <caret line="132" lean-forward="true" selection-start-line="132" selection-end-line="132" />
+        <state relative-caret-position="478">
+          <caret line="62" column="17" lean-forward="true" selection-start-line="62" selection-start-column="17" selection-end-line="62" selection-end-column="17" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/frontend/src/MenuCreatorSellable.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="281" column="4" lean-forward="true" selection-start-line="281" selection-start-column="4" selection-end-line="281" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#41#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/frontend/frontend/src/backend/controllers/image-upload.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="121">
+          <caret line="33" column="36" lean-forward="true" selection-start-line="33" selection-start-column="36" selection-end-line="33" selection-end-column="36" />
         </state>
       </provider>
     </entry>
