@@ -7,16 +7,18 @@ const wrapper = require("../utils/wrapper");
 const multer = require('multer');
 const upload = multer();
 
+// TODO: Add validation
+
 expressRouter.post("/:meta/:uuid", upload.single("image"), async (request, response) =>{
   const token = request.token;
   const file = request.file;
 
   if(!token) {
-    return response.status(config.response.badrequest).send({error: "authorization token is missing"})
+    return response.status(config.response.badrequest).send({error: "authorization token is missing"}).end()
   }
 
   if(!file){
-    return response.status(config.response.badrequest).send({error: "missing file"})
+    return response.status(config.response.badrequest).end({error: "missing file"}).end()
   }
 
   const user = await wrapper.getAccountFromToken(token);
@@ -35,21 +37,28 @@ expressRouter.post("/:meta/:uuid", upload.single("image"), async (request, respo
           content_type: file.mimetype,
           contentbinary: file.buffer
       }
-  }});
+  }})
+    .catch(() => response.status(config.response.badrequest).send({error: "failed to add image"}).end());
 
-  const savedProfile = await profile.save();
+  await profile.save();
 
-  response.status(200).end()
+  response.status(config.response.ok).end()
 
 });
 
 expressRouter.get("/:publishingtype/:uuid", async (request, response) =>{
   const params = request.params;
 
-  const {images} = await mongoProfile.findOne({"images.uuid": params.uuid}, {"images.$": 1});
+  //Find using uuid and publishingtype
+  const {images} = await mongoProfile.findOne({"images.uuid": params.uuid}, {"images.$": 1})
+    .catch(() => response.status(config.response.notfound).send({error: "profile not found"}).end());
+
+  if(images.length > 1){
+    response.status(config.response.badrequest).send({error: "Multiple images found"}).end()
+  }
 
   response.header("Content-Type", images[0].content_type)
-  response.status(200).end(images[0].contentbinary, "binary")
+  response.status(config.response.ok).end(images[0].contentbinary, "binary")
 });
 
 module.exports = expressRouter;

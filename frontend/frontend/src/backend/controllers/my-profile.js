@@ -19,7 +19,7 @@ expressRouter.get('/', async (request, response) =>{
   console.log(token);
 
   if(!token){
-    return response.status(config.response.badrequest).send({error: "authorization token is missing"})
+    return response.status(config.response.badrequest).send({error: "authorization token is missing"}).end()
   }
 
   const user = await wrapper.getAccountFromToken(token);
@@ -56,11 +56,11 @@ expressRouter.post('/', async (request, response) =>{
   const body = request.body;
 
   if(!token){
-    return response.status(config.response.badrequest).send({error: "authorization token is missing"})
+    return response.status(config.response.badrequest).send({error: "authorization token is missing"}).end()
   }
 
   if(!body){
-    return response.status(config.response.badrequest).send({error: "missing body"})
+    return response.status(config.response.badrequest).send({error: "missing body"}).end()
   }
 
   const user = await wrapper.getAccountFromToken(token);
