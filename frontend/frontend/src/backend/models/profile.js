@@ -39,7 +39,7 @@ const profileSchema = mongo.Schema({
             path: String
           },
           bonuses: []
-        })
+        }, {minimize: false})
       ]
     })
   ],

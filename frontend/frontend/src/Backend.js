@@ -68,15 +68,20 @@ export const uploadImage = (selectedFile) => {
   });
 };
 
-export const publishProfile = type => {
+export const deleteImages = uuids => {
   const token = store.getState().clientData.token;
-  const query = `${BACKEND}/index.php/publish/${type}`;
+  const query = `${BACKEND}/api/image-upload/`;
+  const deleteParams = {
+    headers: {
+      Authorization: token
+    },
+    data: {
+      uuid: uuids
+    }}; // delete has no params
 
   return new Promise((resolve, reject) => {
     axios
-      .post(query, "", {
-        headers: { "Content-Type": "text/plain", Authorization: token }
-      })
+      .delete(query, deleteParams)
       .then(function(response) {
         resolve();
       })
@@ -86,14 +91,15 @@ export const publishProfile = type => {
   });
 };
 
-export const deleteImages = uuids => {
+export const publishProfile = type => {
   const token = store.getState().clientData.token;
-  const query = `${BACKEND}/index.php/image`;
-  const deleteParams = { token, uuids }; // delete has no params
+  const query = `${BACKEND}/index.php/publish/${type}`;
 
   return new Promise((resolve, reject) => {
     axios
-      .delete(query, { data: deleteParams })
+      .post(query, "", {
+        headers: { "Content-Type": "text/plain", Authorization: token }
+      })
       .then(function(response) {
         resolve();
       })
