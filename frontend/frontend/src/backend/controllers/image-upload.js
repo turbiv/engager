@@ -83,13 +83,10 @@ expressRouter.delete("/", async (request, response) =>{
   const accountProfile = await mongoAccountProfile.findOne({account_id: user.account_id})
     .catch(() => response.status(config.response.notfound).send({error: "profile not found"}).end());
 
-  const profile = await mongoProfile.findOneAndDelete({account_profile: accountProfile._id, "images.uuid": body.uuid}, {"$pull":
-      {"images.$": {
+  const profile = await mongoProfile.findOneAndUpdate({account_profile: accountProfile._id, "images.uuid": body.uuid}, {"$pull":
+      {"images": {
           publishing_type: 1,
-          uuid: request.params.uuid,
-          meta: request.params.meta,
-          content_type: file.mimetype,
-          contentbinary: file.buffer
+          uuid: body.uuid
         }
       }})
     .catch(() => response.status(config.response.badrequest).send({error: "failed to add image"}).end());
