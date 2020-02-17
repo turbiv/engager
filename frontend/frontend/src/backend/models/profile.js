@@ -21,7 +21,7 @@ const profileSchema = mongo.Schema({
           price: [],
           desc: String,
           intro: {
-            size: {},
+            size: {w: Number, h: Number},
             path: String
           },
           promo: {
@@ -41,7 +41,7 @@ const profileSchema = mongo.Schema({
           bonuses: []
         }, {minimize: false})
       ]
-    })
+    }, {minimize: false})
   ],
   info: {
     phone: String,
