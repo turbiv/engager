@@ -82,7 +82,7 @@ expressRouter.post('/', async (request, response) =>{
     return response.status(config.response.ok).end()
   }
 
-  const updateProfile = await mongoProfile.findOneAndUpdate({account_profile: accountProfile._id}, {...body});
+  const updateProfile = await mongoProfile.findOneAndUpdate({account_profile: accountProfile._id}, body);
   await updateProfile.save()
 });
 

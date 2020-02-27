@@ -6,6 +6,16 @@ import PropTypes from "prop-types";
 import GoogleLogin from "react-google-login";
 import * as appActions from "./reducers/app.actions";
 
+//Login imports
+import Avatar from '@material-ui/core/Avatar';
+import Box from '@material-ui/core/Box';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import Typography from '@material-ui/core/Typography';
+import Grid from '@material-ui/core/Grid';
+import { makeStyles } from '@material-ui/core/styles';
+import Container from '@material-ui/core/Container';
+
 import TopMenu from "./TopMenu";
 
 class Main extends Component {
@@ -56,7 +66,39 @@ class Main extends Component {
 
   renderGoogleLogin() {
     const style = this.state.loggedin ? { display: "none" } : {};
+
     return (
+      <Container component="main" maxWidth="xs">
+        <CssBaseline />
+        <Box height={200} bgcolor="rgba(175,175,175, 1)">
+          <Grid style={{marginTop: 200}} justify={"center"}>
+            <div style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+            }}>
+              <Avatar>
+                <LockOutlinedIcon />
+              </Avatar>
+              <Typography component="h1" variant="h5">
+                Sign in
+              </Typography>
+              <GoogleLogin
+                clientId="922637484566-v5444u8s19lvt81d1vu07kgt3njtemo5.apps.googleusercontent.com"
+                buttonText="LOGIN WITH GOOGLE"
+                isSignedIn={true}
+                onSuccess={this.responseGoogleSuccess}
+                onFailure={this.responseGoogleFailed}
+              />
+            </div>
+          </Grid>
+        </Box>
+      </Container>
+    );
+
+
+
+    /*return (
       <div style={style}>
         <GoogleLogin
           clientId="922637484566-v5444u8s19lvt81d1vu07kgt3njtemo5.apps.googleusercontent.com"
@@ -67,6 +109,7 @@ class Main extends Component {
         />
       </div>
     );
+     */
   }
 
   render() {
