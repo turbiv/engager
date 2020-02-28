@@ -13,6 +13,7 @@ import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import Grid from '@material-ui/core/Grid';
 import Paper from '@material-ui/core/Paper';
+import Particles from 'react-particles-js';
 
 import TopMenu from "./TopMenu";
 
@@ -66,37 +67,61 @@ class Main extends Component {
     const style = this.state.loggedin ? { display: "none" } : {};
 
     return (
-      <Grid   container
-              spacing={0}
-              direction="column"
-              alignItems="center"
-              justify="center"
-              style={{ minHeight: '100vh', ...style }}>
-        <CssBaseline />
-            <Paper elevation={2} bgcolor="rgba(175,175,175, 1)">
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                padding: 20
-              }}>
-                <Avatar>
-                  <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5" style={{padding: 10}}>
-                  Sign in
-                </Typography>
-                <GoogleLogin
-                  style={{padding: 10}}
-                  clientId="922637484566-v5444u8s19lvt81d1vu07kgt3njtemo5.apps.googleusercontent.com"
-                  buttonText="LOGIN WITH GOOGLE"
-                  isSignedIn={true}
-                  onSuccess={this.responseGoogleSuccess}
-                  onFailure={this.responseGoogleFailed}
-                />
-              </div>
-            </Paper>
-      </Grid>
+      <div>
+        <Grid   container
+                spacing={0}
+                direction="column"
+                alignItems="center"
+                justify="center"
+                style={{ minHeight: '100vh', ...style }}>
+          <CssBaseline />
+              <Paper elevation={2} bgcolor="rgba(175,175,175, 1)">
+                <div style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  padding: 20
+                }}>
+                  <Avatar>
+                    <LockOutlinedIcon />
+                  </Avatar>
+                  <Typography component="h1" variant="h5" style={{padding: 10}}>
+                    Sign in
+                  </Typography>
+                  <GoogleLogin
+                    style={{padding: 10}}
+                    clientId="922637484566-v5444u8s19lvt81d1vu07kgt3njtemo5.apps.googleusercontent.com"
+                    buttonText="LOGIN WITH GOOGLE"
+                    isSignedIn={true}
+                    onSuccess={this.responseGoogleSuccess}
+                    onFailure={this.responseGoogleFailed}
+                  />
+                </div>
+              </Paper>
+        </Grid>
+        <Particles  params={{
+          "particles": {
+            "number": {
+              "value": 100
+            },
+            "size": {
+              "value": 3
+            }
+          },
+          "interactivity": {
+            "events": {
+              "onhover": {
+                "enable": true,
+                "mode": "repulse"
+              }
+            }
+          }
+        }}
+        style={{
+          width: '100%',
+          background: `#606c88`
+        }}/>
+      </div>
     );
 
 
