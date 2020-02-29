@@ -139,12 +139,11 @@ class Main extends Component {
           }}
         >
             <CssBaseline />
-            <Paper elevation={2}>
+            <Paper style={{padding: 30, paddingTop: 50, paddingBottom: 50}} elevation={3}>
               <div style={{
                 display: 'flex',
                 flexDirection: 'column',
-                alignItems: 'center',
-                padding: 20
+                alignItems: 'center'
               }}>
                 <Avatar>
                   <LockOutlinedIcon />
@@ -153,7 +152,6 @@ class Main extends Component {
                   Sign in
                 </Typography>
                 <GoogleLogin
-                  style={{padding: 10}}
                   clientId="922637484566-v5444u8s19lvt81d1vu07kgt3njtemo5.apps.googleusercontent.com"
                   buttonText="LOGIN WITH GOOGLE"
                   isSignedIn={true}
