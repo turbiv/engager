@@ -8,12 +8,11 @@ import * as appActions from "./reducers/app.actions";
 
 //Login imports
 import Avatar from '@material-ui/core/Avatar';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
+import CircularProgress from '@material-ui/core/CircularProgress'
 import Typography from '@material-ui/core/Typography';
-import Paper from '@material-ui/core/Paper';
-import Particles from 'react-particles-js';
 import "./css/particles.css"
+import {MainRenderTemplate} from "./MainTemplates"
 
 import TopMenu from "./TopMenu";
 
@@ -52,11 +51,29 @@ class Main extends Component {
   };
 
   renderLoadProgress() {
-    return <div>Loading your data</div>;
+    return(
+      <MainRenderTemplate>
+        <Avatar>
+          <CircularProgress/>
+        </Avatar>
+        <Typography component="h1" variant="h5" style={{padding: 10}}>
+          Loading your data
+        </Typography>
+      </MainRenderTemplate>
+    )
   }
 
   renderNonAuth() {
-    return <div>Not authorized</div>;
+    return(
+      <MainRenderTemplate>
+        <Avatar>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5" style={{padding: 10}}>
+          Not authorized
+        </Typography>
+      </MainRenderTemplate>
+    )
   }
 
   renderAppRouter() {
@@ -67,101 +84,21 @@ class Main extends Component {
     const style = this.state.loggedin ? { display: "none" } : {};
 
     return (
-      <div>
-        <Particles className={"size"} params={{
-          "particles": {
-            "number": {
-              "value": 80,
-              "density": {
-                "enable": true,
-                "value_area": 700
-              }
-            },
-            "shape": {
-              "polygon": {
-                "nb_sides": 5
-              },
-            },
-            "size": {
-              "value": 3,
-              "random": true,
-              "anim": {
-                "enable": false,
-                "speed": 10,
-                "size_min": 0.1,
-                "sync": false
-              }
-            },
-            "move": {
-              "enable": true,
-              "speed": 2,
-              "direction": "none",
-              "out_mode": "out",
-              "attract": {
-                "enable": false,
-                "rotateX": 600,
-                "rotateY": 1200
-              }
-            }
-          },
-          "interactivity": {
-            "detect_on": "canvas",
-            "events": {
-              "onhover": {
-                "enable": true,
-                "mode": "grab"
-              },
-              "onclick": {
-                "enable": true,
-                "mode": "push"
-              },
-              "resize": true
-            },
-            "modes": {
-              "grab": {
-                "distance": 140,
-                "line_linked": {
-                  "opacity": 1
-                }
-              }
-            }
-          }
-        }}
-        style={{
-          background: "#606c88",
-        }}/>
-        <div
-          style={{
-            position: 'absolute',
-            left: '50%',
-            top: '50%',
-            transform: 'translate(-50%, -50%)'
-          }}
-        >
-            <CssBaseline />
-            <Paper style={{padding: 30, paddingTop: 50, paddingBottom: 50}} elevation={3}>
-              <div style={{
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center'
-              }}>
-                <Avatar>
-                  <LockOutlinedIcon />
-                </Avatar>
-                <Typography component="h1" variant="h5" style={{padding: 10}}>
-                  Sign in
-                </Typography>
-                <GoogleLogin
-                  clientId="922637484566-v5444u8s19lvt81d1vu07kgt3njtemo5.apps.googleusercontent.com"
-                  buttonText="LOGIN WITH GOOGLE"
-                  isSignedIn={true}
-                  onSuccess={this.responseGoogleSuccess}
-                  onFailure={this.responseGoogleFailed}
-                />
-              </div>
-            </Paper>
-          </div>
-        </div>
+      <MainRenderTemplate style={style}>
+        <Avatar>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5" style={{padding: 10}}>
+          Sign in
+        </Typography>
+        <GoogleLogin
+          clientId="922637484566-v5444u8s19lvt81d1vu07kgt3njtemo5.apps.googleusercontent.com"
+          buttonText="LOGIN WITH GOOGLE"
+          isSignedIn={true}
+          onSuccess={this.responseGoogleSuccess}
+          onFailure={this.responseGoogleFailed}
+        />
+      </MainRenderTemplate>
     );
   }
 

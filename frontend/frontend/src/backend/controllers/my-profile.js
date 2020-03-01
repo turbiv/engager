@@ -16,8 +16,6 @@ expressRouter.get('/', async (request, response) =>{
 
   const token = request.token;
 
-  console.log(token);
-
   if(!token){
     return response.status(config.response.badrequest).send({error: "authorization token is missing"}).end()
   }
@@ -45,7 +43,6 @@ expressRouter.get('/', async (request, response) =>{
     return response.status(config.response.ok).send("").end()
   }
 
-  console.log(profile.json.categories[0].sellables)
 
   response.status(config.response.ok).send(profile.json).end()
 });
