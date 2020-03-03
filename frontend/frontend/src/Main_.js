@@ -16,75 +16,7 @@ import {MainRenderTemplate} from "./MainTemplates"
 
 import TopMenu from "./TopMenu";
 
-const ResponseGoogleFailed = response => {
-  console.log("responseGoogleFailed");
-  console.log(response);
-  this.setState({
-    action: "google_login",
-    loggedin: false
-  });
-};
-
-const ResponseGoogleSuccess = response => {
-  console.log("success from google");
-  this.setState({ action: "app" });
-  this.props.actions.setAuthToken(response.tokenId);
-  this.props.actions.retrieveClientProfile();
-};
-
-const RenderLoadProgress = () => {
-  return(
-    <MainRenderTemplate>
-      <Avatar>
-        <CircularProgress/>
-      </Avatar>
-      <Typography component="h1" variant="h5" style={{padding: 10}}>
-        Loading your data
-      </Typography>
-    </MainRenderTemplate>
-  )
-};
-
-const RenderNonAuth = () => {
-  return(
-    <MainRenderTemplate>
-      <Avatar>
-        <LockOutlinedIcon />
-      </Avatar>
-      <Typography component="h1" variant="h5" style={{padding: 10}}>
-        Not authorized
-      </Typography>
-    </MainRenderTemplate>
-  )
-};
-
-const RenderAppRouter = () => {
-  return <TopMenu />;
-};
-
-const RenderGoogleLogin = () => {
-  const style = this.state.loggedin ? { display: "none" } : {};
-
-  return (
-    <MainRenderTemplate style={style}>
-      <Avatar>
-        <LockOutlinedIcon />
-      </Avatar>
-      <Typography component="h1" variant="h5" style={{padding: 10}}>
-        Sign in
-      </Typography>
-      <GoogleLogin
-        clientId="922637484566-v5444u8s19lvt81d1vu07kgt3njtemo5.apps.googleusercontent.com"
-        buttonText="LOGIN WITH GOOGLE"
-        isSignedIn={true}
-        onSuccess={this.responseGoogleSuccess}
-        onFailure={this.responseGoogleFailed}
-      />
-    </MainRenderTemplate>
-  );
-}
-
-const Main = () =>{
+class Main_ extends Component {
   constructor(props) {
     super(props);
     this.state = {
@@ -102,6 +34,74 @@ const Main = () =>{
     }, 5000);
   }
 
+  responseGoogleFailed = response => {
+    console.log("responseGoogleFailed");
+    console.log(response);
+    this.setState({
+      action: "google_login",
+      loggedin: false
+    });
+  };
+
+  responseGoogleSuccess = response => {
+    console.log("success from google");
+    this.setState({ action: "app" });
+    this.props.actions.setAuthToken(response.tokenId);
+    this.props.actions.retrieveClientProfile();
+  };
+
+  renderLoadProgress() {
+    return(
+      <MainRenderTemplate>
+        <Avatar>
+          <CircularProgress/>
+        </Avatar>
+        <Typography component="h1" variant="h5" style={{padding: 10}}>
+          Loading your data
+        </Typography>
+      </MainRenderTemplate>
+    )
+  }
+
+  renderNonAuth() {
+    return(
+      <MainRenderTemplate>
+        <Avatar>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5" style={{padding: 10}}>
+          Not authorized
+        </Typography>
+      </MainRenderTemplate>
+    )
+  }
+
+  renderAppRouter() {
+    return <TopMenu />;
+  }
+
+  renderGoogleLogin() {
+    const style = this.state.loggedin ? { display: "none" } : {};
+
+    return (
+      <MainRenderTemplate style={style}>
+        <Avatar>
+          <LockOutlinedIcon />
+        </Avatar>
+        <Typography component="h1" variant="h5" style={{padding: 10}}>
+          Sign in
+        </Typography>
+        <GoogleLogin
+          clientId="922637484566-v5444u8s19lvt81d1vu07kgt3njtemo5.apps.googleusercontent.com"
+          buttonText="LOGIN WITH GOOGLE"
+          isSignedIn={true}
+          onSuccess={this.responseGoogleSuccess}
+          onFailure={this.responseGoogleFailed}
+        />
+      </MainRenderTemplate>
+    );
+  }
+
   render() {
     const { clientData } = this.props;
     if (this.state.action === "google_login") return this.renderGoogleLogin();
@@ -116,7 +116,7 @@ const Main = () =>{
   }
 }
 
-Main.propTypes = {
+Main_.propTypes = {
   actions: PropTypes.object.isRequired,
   clientData: PropTypes.object.isRequired
 };
@@ -136,4 +136,4 @@ function mapDispatchToProps(dispatch) {
 export default connect(
   mapStateToProps,
   mapDispatchToProps
-)(Main);
+)(Main_);

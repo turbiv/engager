@@ -1,10 +1,9 @@
-import React, { Component } from "react";
+import React, {useEffect, useState} from "react";
 
-import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import GoogleLogin from "react-google-login";
-import * as appActions from "./reducers/app.actions";
+import {setAuthToken, retrieveClientProfile} from "./reducers/app.actions";
 
 //Login imports
 import Avatar from '@material-ui/core/Avatar';
@@ -16,122 +15,109 @@ import {MainRenderTemplate} from "./MainTemplates"
 
 import TopMenu from "./TopMenu";
 
-class Main extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      action: "google_login",
-      loggedin: true // assume logged
-    };
-    // ugly way to show google button if user is not logged in
-    setTimeout(() => {
-      if (this.state.action === "google_login" && this.state.loggedin) {
-        this.setState({
-          action: "google_login",
-          loggedin: false
-        });
-      }
-    }, 5000);
-  }
+const RenderLoadProgress = () => {
+  return(
+    <MainRenderTemplate>
+      <Avatar>
+        <CircularProgress/>
+      </Avatar>
+      <Typography component="h1" variant="h5" style={{padding: 10}}>
+        Loading your data
+      </Typography>
+    </MainRenderTemplate>
+  )
+};
 
-  responseGoogleFailed = response => {
+const RenderNonAuth = () => {
+  return(
+    <MainRenderTemplate>
+      <Avatar>
+        <LockOutlinedIcon />
+      </Avatar>
+      <Typography component="h1" variant="h5" style={{padding: 10}}>
+        Not authorized
+      </Typography>
+    </MainRenderTemplate>
+  )
+};
+
+const RenderGoogleLogin = ({onSuccess, onFailure, loggedin}) => {
+
+  const style = loggedin ? { display: "none" } : {};
+
+  return (
+    <MainRenderTemplate style={style}>
+      <Avatar>
+        <LockOutlinedIcon />
+      </Avatar>
+      <Typography component="h1" variant="h5" style={{padding: 10}}>
+        Sign in
+      </Typography>
+      <GoogleLogin
+        clientId="922637484566-v5444u8s19lvt81d1vu07kgt3njtemo5.apps.googleusercontent.com"
+        buttonText="LOGIN WITH GOOGLE"
+        isSignedIn={true}
+        onSuccess={onSuccess}
+        onFailure={onFailure}
+      />
+    </MainRenderTemplate>
+  );
+};
+
+const Main = (props) =>{
+  const [action, setAction] = useState("google_login");
+  const [loggedin, setLoggedin] = useState(true);
+  const { clientData } = props;
+
+  useEffect(() => {
+    setTimeout(() => {
+      if (action === "google_login" && loggedin) {
+        setLoggedin(false);
+      }
+    }, 5000); // eslint-disable-next-line
+  }, []);
+
+  const handleResponseGoogleSuccess = response => {
+    console.log("success from google");
+    setAction("app");
+    props.setAuthToken(response.tokenId);
+    props.retrieveClientProfile();
+  };
+
+  const handleResponseGoogleFailed = response => {
     console.log("responseGoogleFailed");
     console.log(response);
-    this.setState({
-      action: "google_login",
-      loggedin: false
-    });
+    setAction("google_login");
+    setAction(false);
   };
 
-  responseGoogleSuccess = response => {
-    console.log("success from google");
-    this.setState({ action: "app" });
-    this.props.actions.setAuthToken(response.tokenId);
-    this.props.actions.retrieveClientProfile();
-  };
-
-  renderLoadProgress() {
-    return(
-      <MainRenderTemplate>
-        <Avatar>
-          <CircularProgress/>
-        </Avatar>
-        <Typography component="h1" variant="h5" style={{padding: 10}}>
-          Loading your data
-        </Typography>
-      </MainRenderTemplate>
-    )
-  }
-
-  renderNonAuth() {
-    return(
-      <MainRenderTemplate>
-        <Avatar>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5" style={{padding: 10}}>
-          Not authorized
-        </Typography>
-      </MainRenderTemplate>
-    )
-  }
-
-  renderAppRouter() {
-    return <TopMenu />;
-  }
-
-  renderGoogleLogin() {
-    const style = this.state.loggedin ? { display: "none" } : {};
-
-    return (
-      <MainRenderTemplate style={style}>
-        <Avatar>
-          <LockOutlinedIcon />
-        </Avatar>
-        <Typography component="h1" variant="h5" style={{padding: 10}}>
-          Sign in
-        </Typography>
-        <GoogleLogin
-          clientId="922637484566-v5444u8s19lvt81d1vu07kgt3njtemo5.apps.googleusercontent.com"
-          buttonText="LOGIN WITH GOOGLE"
-          isSignedIn={true}
-          onSuccess={this.responseGoogleSuccess}
-          onFailure={this.responseGoogleFailed}
-        />
-      </MainRenderTemplate>
-    );
-  }
-
-  render() {
-    const { clientData } = this.props;
-    if (this.state.action === "google_login") return this.renderGoogleLogin();
-    if (this.state.action === "app") {
-      if (clientData.isFetching) {
-        return this.renderLoadProgress();
-      } else {
-        return clientData.error ? this.renderNonAuth() : this.renderAppRouter();
-      }
+  if (action === "google_login") return <RenderGoogleLogin
+    onSuccess={handleResponseGoogleSuccess} onFailure={handleResponseGoogleFailed} loggedin={loggedin}/>;
+  if (action === "app") {
+    if (clientData.isFetching) {
+      return <RenderLoadProgress/>
+    } else {
+      return clientData.error ? <RenderNonAuth/> : <TopMenu />;
     }
-    return null;
   }
-}
+  return null;
+
+};
 
 Main.propTypes = {
-  actions: PropTypes.object.isRequired,
   clientData: PropTypes.object.isRequired
 };
 
-function mapStateToProps(state, ownProps) {
+const mapStateToProps = (state) => {
   return {
     clientData: state.clientData
   };
-}
+};
 
-function mapDispatchToProps(dispatch) {
-  return {
-    actions: bindActionCreators(appActions, dispatch)
-  };
-}
+const mapDispatchToProps = {
+  retrieveClientProfile,
+  setAuthToken
+};
 
 export default connect(
   mapStateToProps,
