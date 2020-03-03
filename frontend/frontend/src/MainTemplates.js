@@ -5,7 +5,7 @@ import Paper from "@material-ui/core/Paper";
 
 export const MainRenderTemplate = ({children, style}) =>{
   return (
-    <div style={style}>
+    <div>
       <Particles className={"size"} params={{
         "particles": {
           "number": {
@@ -32,7 +32,7 @@ export const MainRenderTemplate = ({children, style}) =>{
           },
           "move": {
             "enable": true,
-            "speed": 2,
+            "speed": 1,
             "direction": "none",
             "out_mode": "out",
             "attract": {
@@ -65,10 +65,9 @@ export const MainRenderTemplate = ({children, style}) =>{
           }
         }
       }}
-                 style={{
-                   background: "#606c88",
-                   ...style // for some reason this has to be here, it wont update otherwise
-                 }}/>
+       style={{
+         background: "#606c88"
+       }}/>
       <div
         style={{
           position: 'absolute',
@@ -79,13 +78,7 @@ export const MainRenderTemplate = ({children, style}) =>{
       >
         <CssBaseline />
         <Paper style={{padding: 30, paddingTop: 50, paddingBottom: 40}} elevation={3}>
-          <div style={{
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center'
-          }}>
             {children}
-          </div>
         </Paper>
       </div>
     </div>

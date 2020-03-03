@@ -15,38 +15,49 @@ import {MainRenderTemplate} from "./MainTemplates"
 
 import TopMenu from "./TopMenu";
 
-const RenderLoadProgress = () => {
+const RenderLoadProgress = ({text}) => {
   return(
-    <MainRenderTemplate>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }}>
       <Avatar>
         <CircularProgress/>
       </Avatar>
       <Typography component="h1" variant="h5" style={{padding: 10}}>
-        Loading your data
+        {text}
       </Typography>
-    </MainRenderTemplate>
+    </div>
   )
 };
 
 const RenderNonAuth = () => {
   return(
-    <MainRenderTemplate>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center'
+    }}>
       <Avatar>
         <LockOutlinedIcon />
       </Avatar>
       <Typography component="h1" variant="h5" style={{padding: 10}}>
         Not authorized
       </Typography>
-    </MainRenderTemplate>
+    </div>
   )
 };
 
-const RenderGoogleLogin = ({onSuccess, onFailure, loggedin}) => {
-
-  const style = loggedin ? { display: "none" } : {};
+const RenderGoogleLogin = ({onSuccess, onFailure, style}) => {
 
   return (
-    <MainRenderTemplate style={style}>
+    <div style={{
+      display: 'flex',
+      flexDirection: 'column',
+      alignItems: 'center',
+      ...style
+    }}>
       <Avatar>
         <LockOutlinedIcon />
       </Avatar>
@@ -60,19 +71,23 @@ const RenderGoogleLogin = ({onSuccess, onFailure, loggedin}) => {
         onSuccess={onSuccess}
         onFailure={onFailure}
       />
-    </MainRenderTemplate>
+    </div>
   );
 };
 
-const Main = (props) =>{
+const SelectionContent = ({clientData}) =>{
   const [action, setAction] = useState("google_login");
   const [loggedin, setLoggedin] = useState(true);
-  const { clientData } = props;
+  const [logincheck, setLoginCheck] = useState(true);
+
+  const style = loggedin ? { display: "none" } : {};
+
 
   useEffect(() => {
     setTimeout(() => {
       if (action === "google_login" && loggedin) {
         setLoggedin(false);
+        setLoginCheck(false)
       }
     }, 5000); // eslint-disable-next-line
   }, []);
@@ -80,8 +95,8 @@ const Main = (props) =>{
   const handleResponseGoogleSuccess = response => {
     console.log("success from google");
     setAction("app");
-    props.setAuthToken(response.tokenId);
-    props.retrieveClientProfile();
+    setAuthToken(response.tokenId);
+    retrieveClientProfile();
   };
 
   const handleResponseGoogleFailed = response => {
@@ -91,17 +106,27 @@ const Main = (props) =>{
     setAction(false);
   };
 
+  if(logincheck) return <RenderLoadProgress text={"Loading signin"}/>;
   if (action === "google_login") return <RenderGoogleLogin
-    onSuccess={handleResponseGoogleSuccess} onFailure={handleResponseGoogleFailed} loggedin={loggedin}/>;
+    onSuccess={handleResponseGoogleSuccess} onFailure={handleResponseGoogleFailed} style={style}/>;
   if (action === "app") {
     if (clientData.isFetching) {
-      return <RenderLoadProgress/>
+      return <RenderLoadProgress text={"Loading your data"}/>
     } else {
       return clientData.error ? <RenderNonAuth/> : <TopMenu />;
     }
   }
   return null;
+};
 
+const Main = (props) =>{
+  const { clientData } = props;
+
+  return(
+    <MainRenderTemplate>
+      <SelectionContent clientData={clientData} setAuthToken={props.setAuthToken} retrieveClientProfile={props.retrieveClientProfile}/>
+    </MainRenderTemplate>
+  );
 };
 
 Main.propTypes = {
