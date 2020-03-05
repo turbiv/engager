@@ -4,6 +4,7 @@ import { connect } from "react-redux";
 import PropTypes from "prop-types";
 import GoogleLogin from "react-google-login";
 import {setAuthToken, retrieveClientProfile} from "./reducers/app.actions";
+import TopMenu from "./TopMenu";
 
 //Login imports
 import Avatar from '@material-ui/core/Avatar';
@@ -12,8 +13,6 @@ import CircularProgress from '@material-ui/core/CircularProgress'
 import Typography from '@material-ui/core/Typography';
 import "./css/particles.css"
 import {MainRenderTemplate} from "./MainTemplates"
-
-import TopMenu from "./TopMenu";
 
 const RenderLoadProgress = ({text}) => {
   return(
@@ -75,7 +74,7 @@ const RenderGoogleLogin = ({onSuccess, onFailure, style}) => {
   );
 };
 
-const SelectionContent = ({clientData}) =>{
+const SelectionContent = ({clientData, retrieveClientProfile, setAuthToken, loggedinSuccess}) =>{
   const [action, setAction] = useState("google_login");
   const [loggedin, setLoggedin] = useState(true);
   const [logincheck, setLoginCheck] = useState(true);
@@ -110,30 +109,41 @@ const SelectionContent = ({clientData}) =>{
   if (action === "google_login") return <RenderGoogleLogin
     onSuccess={handleResponseGoogleSuccess} onFailure={handleResponseGoogleFailed} style={style}/>;
   if (action === "app") {
+    console.log(clientData.isFetching)
     if (clientData.isFetching) {
       return <RenderLoadProgress text={"Loading your data"}/>
     } else {
-      return clientData.error ? <RenderNonAuth/> : <TopMenu />;
+      return clientData.error ? <RenderNonAuth/> : loggedinSuccess();
     }
   }
   return null;
 };
 
 const Main = (props) =>{
+  const [loggedinStatus , setLoggedinStatus] = useState(false);
   const { clientData } = props;
 
-  return(
-    <MainRenderTemplate>
-      <SelectionContent clientData={clientData} setAuthToken={props.setAuthToken} retrieveClientProfile={props.retrieveClientProfile}/>
-    </MainRenderTemplate>
-  );
+  const handleLoginSuccess = () =>{
+    setLoggedinStatus(true);
+    return null
+  };
+
+  if(loggedinStatus){
+    return <TopMenu/>
+  }else{
+    return(
+      <MainRenderTemplate>
+        <SelectionContent loggedinSuccess={handleLoginSuccess} clientData={clientData} setAuthToken={props.setAuthToken} retrieveClientProfile={props.retrieveClientProfile}/>
+      </MainRenderTemplate>
+    );
+  }
 };
 
 Main.propTypes = {
   clientData: PropTypes.object.isRequired
 };
 
-const mapStateToProps = (state) => {
+const mapStateToProps = (state, ownProps) => {
   return {
     clientData: state.clientData
   };
