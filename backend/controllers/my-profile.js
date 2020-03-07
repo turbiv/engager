@@ -2,6 +2,7 @@ const express = require("express");
 const expressRouter = express.Router();
 const config = require("../config.json");
 const mongoAccountProfile = require("../models/account_profile");
+const mongoImages = require("../models/images");
 const mongoProfile = require("../models/profile");
 const wrapper = require("../utils/wrapper");
 const mongoose = require("mongoose");
@@ -37,6 +38,7 @@ expressRouter.get('/', async (request, response) =>{
       publishing_type: 1,
       profile_id: mongoose.Types.ObjectId()
     };
+
     const savenewprofile = new mongoAccountProfile(newprofile);
     await savenewprofile.save();
 
@@ -68,6 +70,13 @@ expressRouter.post('/', async (request, response) =>{
     .catch(() => response.status(config.response.notfound).send({error: "profile not found"}).end());
 
   if(!accountProfile.json){
+    const newimages = {
+      account_id: user.account_id,
+    };
+
+    const savenewimages = new mongoImages(newimages);
+    await savenewimages.save();
+
     const profile = {account_profile: accountProfile._id, ...body};
 
     const newprofile = new mongoProfile(profile);
@@ -77,6 +86,8 @@ expressRouter.post('/', async (request, response) =>{
     await updateAccountJson.save();
     return response.status(config.response.ok).end()
   }
+
+  console.log(body)
 
   const updateProfile = await mongoProfile.findOneAndUpdate({account_profile: accountProfile._id}, body);
   await updateProfile.save();

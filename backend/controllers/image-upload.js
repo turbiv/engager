@@ -1,8 +1,7 @@
 const express = require("express");
 const expressRouter = express.Router();
 const config = require("../config.json");
-const mongoAccountProfile = require("../models/account_profile");
-const mongoProfile = require("../models/profile");
+const mongoImages = require("../models/images");
 const wrapper = require("../utils/wrapper");
 const multer = require('multer');
 const upload = multer();
@@ -24,11 +23,8 @@ expressRouter.post("/:meta/:uuid", upload.single("image"), async (request, respo
     return response.status(config.response.unauthorized).send("failed to authorize").end()
   }
 
-  const accountProfile = await mongoAccountProfile.findOne({account_id: user.account_id})
-    .catch(() => response.status(config.response.notfound).send({error: "profile not found"}).end());
-
-  const profile = await mongoProfile.findOneAndUpdate({account_profile: accountProfile._id}, {"$push":
-      {"images": {
+  const images = await mongoImages.findOneAndUpdate({account_id: user.account_id},{$push:
+      {images: {
           publishing_type: 1,
           uuid: request.params.uuid,
           meta: request.params.meta,
@@ -38,7 +34,7 @@ expressRouter.post("/:meta/:uuid", upload.single("image"), async (request, respo
   }})
     .catch(() => response.status(config.response.badrequest).send({error: "failed to add image"}).end());
 
-  await profile.save();
+  await images.save();
 
   response.status(config.response.ok).end()
 
@@ -48,7 +44,7 @@ expressRouter.get("/:publishingtype/:uuid", async (request, response) =>{
   const params = request.params;
 
   //Find using uuid and publishingtype
-  const result = await mongoProfile.findOne({"images.uuid": params.uuid, "images.publishing_type": 1}, {"images.$": 1})
+  const result = await mongoImages.findOne({"images.uuid": params.uuid, "images.publishing_type": 1}, {"images.$": 1})
     .catch(() => response.status(config.response.notfound).send({error: "failed to search profile"}).end());
 
   if(!result){
@@ -80,10 +76,7 @@ expressRouter.delete("/", async (request, response) =>{
     return response.status(config.response.unauthorized).send("failed to authorize").end()
   }
 
-  const accountProfile = await mongoAccountProfile.findOne({account_id: user.account_id})
-    .catch(() => response.status(config.response.notfound).send({error: "profile not found"}).end());
-
-  await mongoProfile.findOneAndUpdate({account_profile: accountProfile._id, "images.uuid": body.uuid}, {"$pull":
+  await mongoImages.findOneAndUpdate({account_id: user.account_id, "images.uuid": body.uuid}, {"$pull":
       {images: {
           uuid: body.uuid
         }

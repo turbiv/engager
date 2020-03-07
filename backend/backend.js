@@ -17,7 +17,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(morgan("tiny"));
 app.use(middleware.getToken);
-
+//mongoose.set('debug', true);
 app.use(baseurl + "/my-profile", profilesController);
 app.use(baseurl + "/image-upload", imageupload);
 

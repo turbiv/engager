@@ -50,16 +50,7 @@ const profileSchema = mongo.Schema({
     openHours: [String],
     address: [String],
     location: { lat: Number, lng: Number, preview: String }
-  },
-  images: [
-    new mongo.Schema({
-      publishing_type: Number, //Save as draft , int 1
-      uuid: String,
-      meta: String,
-      content_type: String, //take from image , type (png , jpeg) image/png
-      contentbinary: Buffer
-    })
-  ]
+  }
 },{ minimize: false });
 
 profileSchema.plugin(uniqueValidator);
