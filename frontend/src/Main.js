@@ -64,7 +64,7 @@ const RenderGoogleLogin = ({onSuccess, onFailure, style}) => {
         Sign in
       </Typography>
       <GoogleLogin
-        clientId="922637484566-v5444u8s19lvt81d1vu07kgt3njtemo5.apps.googleusercontent.com"
+        clientId="clientid"
         buttonText="LOGIN WITH GOOGLE"
         isSignedIn={true}
         onSuccess={onSuccess}
