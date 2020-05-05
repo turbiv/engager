@@ -10,7 +10,7 @@ const middleware = require("./utils/middleware");
 const profilesController = require("./controllers/my-profile");
 const imageupload = require("./controllers/image-upload");
 const baseurl = "/backend/engager-backend/api";
-const mongoUrl = "mongodb+srv://fullstack:df478444@cluster0-vgh1b.mongodb.net/engager?retryWrites=true&w=majority";
+const mongoUrl = "mongourl";
 mongoose.connect(mongoUrl, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.use(cors());
